@@ -129,38 +129,27 @@ automacao-trello-python/
 ```
 ✨ Observações
 
-## 🕒 Ajuste de Datas no Trello
+## 🕒 Correção da Data no Trello
 
-O Trello utiliza o padrão **UTC** para armazenar datas e horários.  
-Como estamos no Brasil (GMT-3), é necessário ajustar o horário para evitar discrepâncias.
+Durante os testes, foi identificado um problema:  
+- O agente informava corretamente a data **02/06** (horário de Brasília).  
+- Porém, ao adicionar a tarefa no Trello, ela aparecia com a data **01/06**.  
 
-### ✅ Implementação no código
+### 🔎 Causa
+O Trello armazena datas e horários em **UTC**.  
+Como o Brasil está em GMT‑3, sem conversão o Trello interpretava o horário local como se fosse 3 horas antes, deslocando a tarefa para o dia anterior.
 
-No início do arquivo:
-python
-```
-from datetime import datetime, timedelta, timezone
-```
-
-Função para gerar contexto temporal (ajustado para Brasília):
-```
+### ✅ Solução implementada
+1. O agente mostra a data/hora ajustada para Brasília:
+```python
 def get_temporal_context():
     now = datetime.now(timezone.utc) - timedelta(hours=3)  # ajusta para Brasília
     return now.strftime('%Y/%m/%d %H:%M:%S')
 ```
-
-Conversão para UTC antes de enviar ao Trello:
+Antes de enviar ao Trello, converte para UTC:
 ```
-# Dentro da função adicionar_tarefa
 due_utc = datetime.fromisoformat(due_date).astimezone(timezone.utc).isoformat()
 ```
-💡 **Observação**
-
-O agente mostra a hora já ajustada para Brasília.
-
-Antes de enviar ao Trello, o horário é convertido para UTC, garantindo consistência.
-
-Sem essa conversão, o Trello exibiria a data/hora com diferença de 3 horas.
 
 
 O modelo Gemini tem limite de requisições na versão gratuita (20/dia). Se atingir o limite, aguarde ou configure billing no Google Cloud.
