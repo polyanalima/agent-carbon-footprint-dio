@@ -22,10 +22,12 @@ O agente é capaz de:
 ## ⚙️ Configuração
 
 1. Clone o repositório:
-   ```bash
-   git clone https://github.com/polyanalima/agent-carbon-footprint.git
+```bash
+git clone https://github.com/polyanalima/agent-carbon-footprint.git
 
-   Crie um arquivo .env na raiz do projeto com suas credenciais do Trello:
-   TRELLO_API_KEY=seu_api_key
+
+2. Crie um arquivo .env na raiz do projeto com suas credenciais do Trello:
+```
+TRELLO_API_KEY=seu_api_key
 TRELLO_API_SECRET=seu_api_secret
 TRELLO_TOKEN=seu_token
