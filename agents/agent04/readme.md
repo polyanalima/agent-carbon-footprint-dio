@@ -97,8 +97,8 @@ Agente: ✅ Tarefa adicionada no Trello!
 
 
 Usuário: Liste todas as tarefas 
-Agente: 
-Aqui estão as tarefas que você tem para hoje:
+
+Agente: Aqui estão as tarefas que você tem para hoje:
 Ir ao médico (Status: A fazer) - Consulta de rotina
 Fazer compras no mercado (Status: A fazer) - Comprar itens essenciais para a casa: alimentos, produtos de limpeza, etc.
 Dar banho no cachorro (Status: Concluído) - Dar banho no cachorro a tarde
