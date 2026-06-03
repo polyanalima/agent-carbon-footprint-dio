@@ -92,7 +92,7 @@ Agente: ✅ Tarefa adicionada no Trello!
 📑 Listar tarefas
 <img width="1244" height="890" alt="image" src="https://github.com/user-attachments/assets/7fd85c96-fa60-46e3-9f8e-c86f09fb5c93" />
 
-text
+
 Usuário: Liste todas as tarefas 
 Agente: 
 Aqui estão as tarefas que você tem para hoje:
@@ -103,7 +103,7 @@ Dar banho no cachorro (Status: Concluído) - Dar banho no cachorro a tarde
 🔄 Mudar status
 <img width="1253" height="908" alt="image" src="https://github.com/user-attachments/assets/7a8d8f2a-645f-4a2e-a84e-a640d7799cd2" />
 
-text
+
 Usuário: Marque a tarefa "Fazer compras" como concluída
 Agente: ✅ 'Fazer compras': A FAZER → CONCLUÍDO
 
@@ -115,7 +115,6 @@ Exemplo de card criado no Trello:
 
 🧩 Estrutura do Projeto
 ```
-text
 automacao-trello-python/
 │
 ├── agents/
@@ -129,6 +128,39 @@ automacao-trello-python/
 
 ```
 ✨ Observações
-O Trello interpreta datas em UTC, por isso o código converte horários para evitar discrepâncias.
+
+## 🕒 Ajuste de Datas no Trello
+
+O Trello utiliza o padrão **UTC** para armazenar datas e horários.  
+Como estamos no Brasil (GMT-3), é necessário ajustar o horário para evitar discrepâncias.
+
+### ✅ Implementação no código
+
+No início do arquivo:
+python
+```
+from datetime import datetime, timedelta, timezone
+```
+
+Função para gerar contexto temporal (ajustado para Brasília):
+```
+def get_temporal_context():
+    now = datetime.now(timezone.utc) - timedelta(hours=3)  # ajusta para Brasília
+    return now.strftime('%Y/%m/%d %H:%M:%S')
+```
+
+Conversão para UTC antes de enviar ao Trello:
+```
+# Dentro da função adicionar_tarefa
+due_utc = datetime.fromisoformat(due_date).astimezone(timezone.utc).isoformat()
+```
+💡 **Observação**
+
+O agente mostra a hora já ajustada para Brasília.
+
+Antes de enviar ao Trello, o horário é convertido para UTC, garantindo consistência.
+
+Sem essa conversão, o Trello exibiria a data/hora com diferença de 3 horas.
+
 
 O modelo Gemini tem limite de requisições na versão gratuita (20/dia). Se atingir o limite, aguarde ou configure billing no Google Cloud.
