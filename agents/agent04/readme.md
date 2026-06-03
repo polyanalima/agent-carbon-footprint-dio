@@ -27,10 +27,10 @@ O agente é capaz de:
    
 Crie um arquivo .env na raiz do projeto com suas credenciais do Trello:
 
-'''env
+```env
 TRELLO_API_KEY=seu_api_key
 TRELLO_API_SECRET=seu_api_secret
-TRELLO_TOKEN=seu_token'''
+TRELLO_TOKEN=seu_token```
 
 
 Instale as dependências:
