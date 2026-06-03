@@ -36,11 +36,13 @@ TRELLO_TOKEN=seu_token```
 Instale as dependências:
 
 '''bash
-pip install -r requirements.txt'''
+pip install -r requirements.txt
+
+
 ▶️ Execução
 Ative o ambiente virtual:
 
-powershell
+```powershell
 .\.lab-dio\Scripts\Activate.ps1
 Vá até a pasta do agente:
 
