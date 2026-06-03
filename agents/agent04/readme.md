@@ -23,7 +23,7 @@ O agente é capaz de:
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/polyanalima/agent-carbon-footprint.git
+   git clone https://github.com/polyanalima/agent-carbon-footprint.git'''
 Crie um arquivo .env na raiz do projeto com suas credenciais do Trello:
 
 env
@@ -68,8 +68,7 @@ Usuário: Marque a tarefa "Fazer compras" como concluída
 Agente: ✅ 'Fazer compras': A FAZER → CONCLUÍDO
 📸 Prints de Execução
 Exemplo de card criado no Trello:
-<img width="882" height="189" alt="image" src="https://github.com/user-attachments/assets/b112d1dd-9b4d-460c-9737-8a61485592f7" />
-
+[Parece que o resultado não era seguro para exibição. Vamos mudar as coisas e tentar outra opção!]
 
 Exemplo do agente respondendo no DevUI:
 [Parece que o resultado não era seguro para exibição. Vamos mudar as coisas e tentar outra opção!]
