@@ -1,31 +1,29 @@
-📌 Projeto: Integração Trello com Python e ADK
-🚀 Descrição
-Este projeto faz parte do desafio da DIO e tem como objetivo criar um Agente de Organização de Tarefas utilizando Python, Trello e o Google ADK.
+# 📌 Projeto: Integração Trello com Python e ADK
+
+## 🚀 Descrição
+Este projeto faz parte do desafio da DIO e tem como objetivo criar um **Agente de Organização de Tarefas** utilizando Python, Trello e o Google ADK.  
 
 O agente é capaz de:
+- ➕ Adicionar novas tarefas no Trello
+- 📑 Listar tarefas por status
+- 🔄 Mudar o status de tarefas (ex: "A Fazer" → "Em Andamento" → "Concluído")
+- 🕒 Gerar contexto temporal (data e hora atual)
 
-Adicionar novas tarefas no Trello
+---
 
-Listar tarefas por status
+## 🛠️ Tecnologias Utilizadas
+- Python 3.10+
+- Trello API (via `py-trello`)
+- Google ADK
+- dotenv (para variáveis de ambiente)
 
-Mudar o status de tarefas (ex: "A Fazer" → "Em Andamento" → "Concluído")
+---
 
-Gerar contexto temporal (data e hora atual)
+## ⚙️ Configuração
 
-🛠️ Tecnologias Utilizadas
-Python 3.10+
-
-Trello API (via py-trello)
-
-Google ADK
-
-dotenv (para variáveis de ambiente)
-
-⚙️ Configuração
-Clone o repositório:
-
-bash
-git clone https://github.com/seu-usuario/seu-repositorio.git
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/polyanalima/agent-carbon-footprint.git
 Crie um arquivo .env na raiz do projeto com suas credenciais do Trello:
 
 env
@@ -55,9 +53,6 @@ Código
 http://127.0.0.1:8000
 📋 Exemplos de Uso
 ➕ Adicionar tarefa
-O agente pergunta quais são as tarefas do dia e cria cards no Trello automaticamente.
-Exemplo:
-
 Código
 Usuário: Quero adicionar a tarefa "Fazer compras no mercado"
 Agente: ✅ Tarefa adicionada no Trello!
@@ -71,6 +66,16 @@ Agente:
 Código
 Usuário: Marque a tarefa "Fazer compras" como concluída
 Agente: ✅ 'Fazer compras': A FAZER → CONCLUÍDO
+📸 Prints de Execução
+Exemplo de card criado no Trello:
+<img width="882" height="189" alt="image" src="https://github.com/user-attachments/assets/b112d1dd-9b4d-460c-9737-8a61485592f7" />
+
+
+Exemplo do agente respondendo no DevUI:
+[Parece que o resultado não era seguro para exibição. Vamos mudar as coisas e tentar outra opção!]
+
+(Substitua link-da-imagem pelos links das imagens que você subir no GitHub ou arraste os prints para o editor do README.)
+
 🧩 Estrutura do Projeto
 Código
 automacao-trello-python/
