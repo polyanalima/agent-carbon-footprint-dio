@@ -22,17 +22,20 @@ O agente é capaz de:
 
 ## ⚙️ Configuração
 
-1. Clone o repositório:
-bash
-```git clone https://github.com/polyanalima/agent-carbon-footprint.git
-```
-
-2. Crie um arquivo .env na raiz do projeto com suas credenciais do Trello:
+1. Crie um arquivo .env na raiz do projeto com suas credenciais do Trello:
 
 env
-```TRELLO_API_KEY=seu_api_key
+```
+   TRELLO_API_KEY=seu_api_key
    TRELLO_API_SECRET=seu_api_secret
    TRELLO_TOKEN=seu_token
+```
+2. O projeto utiliza as seguintes bibliotecas (listadas em requirements.txt):
+```
+google-adk
+py-trello
+datetime
+dotenv
 ```
 
 3. Instale as dependências:
@@ -62,7 +65,7 @@ cd agents\agent04\agenttaskmanager
 
 powershell
 ```
-adk web --port 8000
+adk web 
 ```
 
 ⚠️ Se a porta 8000 já estiver ocupada, você pode alterar para outra porta (ex: 8080):
