@@ -30,11 +30,13 @@ Crie um arquivo .env na raiz do projeto com suas credenciais do Trello:
 '''env
 TRELLO_API_KEY=seu_api_key
 TRELLO_API_SECRET=seu_api_secret
-TRELLO_TOKEN=seu_token
+TRELLO_TOKEN=seu_token'''
+
+
 Instale as dependências:
 
-bash
-pip install -r requirements.txt
+'''bash
+pip install -r requirements.txt'''
 ▶️ Execução
 Ative o ambiente virtual:
 
