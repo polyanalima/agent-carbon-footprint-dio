@@ -1,4 +1,3 @@
-markdown
 # 📌 Projeto: Integração Trello com Python e ADK
 
 ## 🚀 Descrição
