@@ -40,7 +40,7 @@ dotenv
 
 3. Instale as dependências:
 
-bash
+powershell
 ```
 pip install -r requirements.txt
 ```
