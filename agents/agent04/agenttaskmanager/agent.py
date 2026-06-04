@@ -1,7 +1,7 @@
 from google.adk.agents.llm_agent import Agent
 from trello import TrelloClient
 from dotenv import load_dotenv
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 import os
 
 load_dotenv()
@@ -12,34 +12,38 @@ API_SECRET = os.getenv('TRELLO_API_SECRET')
 TOKEN = os.getenv('TRELLO_TOKEN')
 
 
+
 def get_temporal_context():
-    now = datetime.now()
+    now = datetime.now(timezone.utc) - timedelta(hours=3)  # ajusta para Brasília
     return now.strftime('%Y/%m/%d %H:%M:%S')
 
 
 def adicionar_tarefa(nome_da_task: str, descricao_da_task: str, due_date: str):
-    
+
     client = TrelloClient(
         api_key=API_KEY,
         api_secret=API_SECRET,
         token=TOKEN
     )
-    
+
     client.list_boards()
     # Obter o board (você precisa do ID ou nome do board)
     boards = client.list_boards()
     meu_board = [b for b in boards if b.name == 'DIO'][0]
 
+
     # Obter a lista onde quer adicionar o card
     listas = meu_board.list_lists()
 
-    minha_lista = [l for l in listas if l.name.upper() == 'TO DO' or l.name.upper()== 'A FAZER'][0]
-    
-    # Criar o card (task)
+    minha_lista = [l for l in listas if l.name.upper() == 'TO DO' or l.name.upper() == 'A FAZER'][0]
+  
+        # Converter para UTC antes de enviar
+    due_utc = datetime.fromisoformat(due_date).astimezone(timezone.utc).isoformat()
+
     minha_lista.add_card(
         name=nome_da_task,
         desc=descricao_da_task,
-        due=due_date
+        due=due_utc
     )
 
 def listar_tarefas(status: str = "todas"):
@@ -48,10 +52,10 @@ def listar_tarefas(status: str = "todas"):
         api_secret=API_SECRET,
         token=TOKEN
     )
-
+ 
     boards = client.list_boards()
     meu_board = [b for b in boards if b.name == 'DIO'][0]
-    listas = meu_board.list_lists()        
+    listas = meu_board.list_lists()
 
     if status.lower() == "todas":
         listas_filtradas = listas
@@ -79,7 +83,8 @@ def listar_tarefas(status: str = "todas"):
     
     return tarefas
 
-def mudar_status_tarefa(nome_da_task: str, novo_status: str) -> str:
+
+def mudar_status_da_tarefa(nome_da_task: str, novo_status: str) -> str:
     try:
         client = TrelloClient(
             api_key=API_KEY,
@@ -90,18 +95,18 @@ def mudar_status_tarefa(nome_da_task: str, novo_status: str) -> str:
         boards = client.list_boards()
         meu_board = [b for b in boards if b.name == 'DIO'][0]
         listas = meu_board.list_lists()
-                       
+       
         # Mapear status para listas
         status_map = {
             "a fazer": "A FAZER",
             "em andamento": "EM ANDAMENTO",
-            "concluido": "CONCLUÍDO"
+            "concluído": "CONCLUÍDO"
         }
-        
+    
         nome_lista_destino = status_map.get(novo_status.lower())
 
         if not nome_lista_destino:
-            return f"❌ Status inválido. Use: 'a fazer', 'em andamento' ou 'concluido'"
+            return f"❌ Status inválido. Use: 'a fazer', 'em andamento' ou 'concluído'"
         
         # Encontrar lista de destino
         lista_destino = next(
@@ -112,7 +117,7 @@ def mudar_status_tarefa(nome_da_task: str, novo_status: str) -> str:
         if not lista_destino:
             return f"❌ Lista '{nome_lista_destino}' não encontrada no board"
         
-         # Buscar card em todas as listas
+        # Buscar card em todas as listas
         card_encontrado = None
         lista_origem = None
 
@@ -135,6 +140,7 @@ def mudar_status_tarefa(nome_da_task: str, novo_status: str) -> str:
     except Exception as e:
         return f"❌ Erro: {str(e)}"
 
+
 root_agent = Agent(
     model='gemini-2.5-flash',
     name='root_agent',
@@ -147,12 +153,13 @@ root_agent = Agent(
         Sempre inicie a conversa perguntando quais são as tarefas do dia informando a data com pela tool get_temporal_context, 
         e depois vá perguntando se tem mais alguma tarefa, até que o usuário diga que não tem mais tarefas.
         Suas funções:
-         1. Adicionar novas tarefas com nome e descrição
+          1. Adicionar novas tarefas com nome e descrição
           2. Listar todas as tarefas ou filtrar por status
           3. Marcar tarefas como concluídas
           4. Remover tarefas da lista
           5. Mudar o status da tarefa (ex: de "A Fazer" para "Em Andamento" e de "Em Andamento" para "Concluído")
           6. Gerar contexto temporal (data e hora atual) para organizar as tarefas do dia
 """,
-    tools=[get_temporal_context, adicionar_tarefa, listar_tarefas, mudar_status_tarefa],
+    tools=[get_temporal_context, adicionar_tarefa, listar_tarefas, mudar_status_da_tarefa]
 )
+
